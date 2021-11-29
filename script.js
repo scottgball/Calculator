@@ -17,7 +17,7 @@ let operate = (operator, a, b) => {
 
 const display = document.querySelector('#display p');
 const numbers = document.querySelectorAll('.number');
-const operators = document.querySelectorAll('.operator');
+const ariths = document.querySelectorAll('.arith');
 const equals = document.querySelector('#equals');
 let firstValue = '';
 let secondValue = '';
@@ -41,13 +41,23 @@ numbers.forEach((number) => {
   number.addEventListener('click', displayInput);
 });
 
-operators.forEach((operator) => {
-  operator.addEventListener('click', saveOperator);
+
+
+ariths.forEach((arith) => {
+  arith.addEventListener('click', (e) => {
+    if (operator !== '') {  //if an arith button has already been clicked, then on next arith click it functions like clicking 'equals'
+      saveInput();
+      operate(operator, firstValue, secondValue);
+      displayTotal();
+      saveOperator(arith);   //passes the arith button clicked as a parameter to saveOperator so that saveOperator knows what to save as operator
+    } else {
+      saveOperator(arith);   //same as above
+      saveInput();
+    };
+  });
 });
 
-operators.forEach((operator) => {
-  operator.addEventListener('click', saveInput);
-});
+
 
 equals.addEventListener('click', saveInput);
 
@@ -72,12 +82,13 @@ function saveInput() {
     firstValue = +input;
     input = '';
   } else {
-    secondValue = +input
+    secondValue = +input;
+    input = '';
   };
 };
 
-function saveOperator() {
-  return operator = this.value;
+function saveOperator(arith) {    //saves the value of the arith button that was clicked, needs the parameter passed to it from the event listener
+  return operator = arith.value;
 };
 
 function displayTotal() {
