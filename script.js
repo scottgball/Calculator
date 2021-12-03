@@ -1,3 +1,5 @@
+//PRIMARY FUNCTIONS
+
 let add = (a, b) => a + b;
 let subtract = (a, b) => a - b;
 let multiply = (a, b) => a * b;
@@ -5,16 +7,21 @@ let divide = (a, b) => a / b;
 
 let operate = (operator, a, b) => {
   if (operator === '+') {
-    return total = add(a, b);
+    total = add(a, b);
+    return roundedTotal = total.toFixed(6);
   } else if (operator === '-') {
-    return total = subtract(a, b);
+    total = subtract(a, b);
+    return roundedTotal = total.toFixed(6);
   } else if (operator === '*') {
-    return total = multiply(a, b);
+    total = multiply(a, b);
+    return roundedTotal = total.toFixed(6);
   } else if (operator === '/') {
-    return total = divide(a, b);
+    total = divide(a, b);
+    return roundedTotal = total.toFixed(6);
   }
 };
 
+//DEFAULT VALUES
 const display = document.querySelector('#display p');
 const numbers = document.querySelectorAll('.number');
 const ariths = document.querySelectorAll('.arith');
@@ -22,17 +29,13 @@ const equals = document.querySelector('#equals');
 let firstValue = '';
 let secondValue = '';
 let operator = '';
-let total = '';
+let total = 0;
 let input = '';
+let roundedTotal = '';
+let equalsPressed = 'no';
+display.textContent = '0';  //display value before any input
 
-
-// get input 1,
-// make display === input 1;
-// operator saves input 1, saves operator, starts get input 2;
-// make display === input 2;
-// equals operates(input 1, input 2, operator);
-
-
+//EVENT LISTENERS
 numbers.forEach((number) => {
   number.addEventListener('click', getInput);
 });
@@ -41,33 +44,32 @@ numbers.forEach((number) => {
   number.addEventListener('click', displayInput);
 });
 
-
-
 ariths.forEach((arith) => {
   arith.addEventListener('click', (e) => {
-    if (operator !== '') {  //if an arith button has already been clicked, then on next arith click it functions like clicking 'equals'
+    if (operator !== '' && equalsPressed === 'no') {  //if an arith button has already been clicked, then on next arith click it functions like clicking 'equals'
       saveInput();
       operate(operator, firstValue, secondValue);
       displayTotal();
       saveOperator(arith);   //passes the arith button clicked as a parameter to saveOperator so that saveOperator knows what to save as operator
+      unmarkEquals();  //toggle how arith behaves depending on if equals pressed, because if equals pressed then secondValue set to '' and next time arith is pressed it operates with secondValue = '' causing problems.
     } else {
       saveOperator(arith);   //same as above
       saveInput();
+      unmarkEquals();
     };
   });
 });
 
-
-
-equals.addEventListener('click', saveInput);
-
 equals.addEventListener('click', (e) => {
-  operate(operator, firstValue, secondValue)
+  if (operator !== '') {
+    saveInput();
+    operate(operator, firstValue, secondValue);
+    displayTotal();
+    markEquals();
+  };
 });
 
-equals.addEventListener('click', displayTotal);
-
-
+//HELPER FUNCTIONS
 
 function getInput() {
   return input += this.value;
@@ -87,13 +89,26 @@ function saveInput() {
   };
 };
 
+function saveInputEquals() {
+  secondValue = +input;
+};
+
 function saveOperator(arith) {    //saves the value of the arith button that was clicked, needs the parameter passed to it from the event listener
   return operator = arith.value;
 };
 
 function displayTotal() {
-  display.textContent = total
-  firstValue = total;
+  display.textContent = +roundedTotal;
+  firstValue = +roundedTotal;
+  secondValue = '';
+};
+
+function markEquals() {
+  equalsPressed = 'yes';
+};
+
+function unmarkEquals() {
+  equalsPressed = 'no';
 };
 
 
