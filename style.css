@@ -54,11 +54,15 @@ body {
   background-color: rgb(210, 210, 253);
 }
 
+.delete {
+  background-color: rgb(210, 210, 253);
+}
+
 .number {
   background-color: rgb(207, 250, 207);
 }
 
-#clear {
+#clearAll {
   grid-column: 1 / 3;
 }
 

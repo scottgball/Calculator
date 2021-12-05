@@ -26,6 +26,8 @@ const display = document.querySelector('#display p');
 const numbers = document.querySelectorAll('.number');
 const ariths = document.querySelectorAll('.arith');
 const equals = document.querySelector('#equals');
+const clearAll = document.querySelector('#clearAll');
+const backspace = document.querySelector('#backspace');
 let firstValue = '';
 let secondValue = '';
 let operator = '';
@@ -69,6 +71,15 @@ equals.addEventListener('click', (e) => {
   };
 });
 
+clearAll.addEventListener('click', clearValues)
+
+backspace.addEventListener('click', (e) => {
+  deleteLast();
+  displayInput();
+});
+
+
+
 //HELPER FUNCTIONS
 
 function getInput() {
@@ -109,6 +120,21 @@ function markEquals() {
 
 function unmarkEquals() {
   equalsPressed = 'no';
+};
+
+function clearValues() {
+  firstValue = '';
+  secondValue = '';
+  operator = '';
+  total = 0;
+  input = '';
+  roundedTotal = '';
+  equalsPressed = 'no';
+  display.textContent = '0';
+};
+
+function deleteLast() {
+  input = input.slice(0, input.length -1);
 };
 
 
