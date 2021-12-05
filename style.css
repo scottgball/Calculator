@@ -87,6 +87,10 @@ body {
   grid-row: 5 / 6;
 }
 
+#decimal {
+  background-color: rgb(207, 250, 207);
+}
+
 #zero {
   grid-column: 1 / 3;
 }

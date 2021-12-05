@@ -28,6 +28,7 @@ const ariths = document.querySelectorAll('.arith');
 const equals = document.querySelector('#equals');
 const clearAll = document.querySelector('#clearAll');
 const backspace = document.querySelector('#backspace');
+const decimal = document.querySelector('#decimal');
 let firstValue = '';
 let secondValue = '';
 let operator = '';
@@ -39,12 +40,22 @@ display.textContent = '0';  //display value before any input
 
 //EVENT LISTENERS
 numbers.forEach((number) => {
-  number.addEventListener('click', getInput);
+  number.addEventListener('click', (e) => {
+    getInput(number);
+  });
 });
 
 numbers.forEach((number) => {
   number.addEventListener('click', displayInput);
 });
+
+decimal.addEventListener('click', (e) => {
+    if (!input.includes('.')) {
+    getInput(decimal);
+    displayInput();
+    };
+});
+
 
 ariths.forEach((arith) => {
   arith.addEventListener('click', (e) => {
@@ -82,8 +93,8 @@ backspace.addEventListener('click', (e) => {
 
 //HELPER FUNCTIONS
 
-function getInput() {
-  return input += this.value;
+function getInput(button) {
+  return input += button.value;
 };
 
 function displayInput() {
