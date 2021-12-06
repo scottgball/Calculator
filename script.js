@@ -43,11 +43,8 @@ display.textContent = '0';  //display value before any input
 numbers.forEach((number) => {
   number.addEventListener('click', (e) => {
     getInput(number);
+    displayInput();
   });
-});
-
-numbers.forEach((number) => {
-  number.addEventListener('click', displayInput);
 });
 
 decimal.addEventListener('click', (e) => {
@@ -56,7 +53,6 @@ decimal.addEventListener('click', (e) => {
     displayInput();
     };
 });
-
 
 ariths.forEach((arith) => {
   arith.addEventListener('click', (e) => {
@@ -86,13 +82,68 @@ equals.addEventListener('click', (e) => {
 clearAll.addEventListener('click', clearValues)
 
 backspace.addEventListener('click', (e) => {
+  if (input.length === 1 || input === '') {
+    clearValues();
+  } else {
   deleteLast();
   displayInput();
+  };
 });
 
 plusMinus.addEventListener('click', (e) => {
   togglePlusMinus();
   displayInput();
+});
+
+document.addEventListener('keydown', function(event) {
+  if (event.key = isFinite(event.key) || event.key === '.') {
+    getKeyInput(event.key);
+    displayInput();
+    }
+});
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === "Backspace") {
+    if (input.length === 1 || input === '') {
+      clearValues();
+    } else {
+    deleteLast();
+    displayInput();
+    };
+  };
+});
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === '+' || event.key === '-' || event.key === 'x' || event.key === '/')
+    if (operator !== '' && equalsPressed === 'no') {  
+    saveInput();
+    operate(operator, firstValue, secondValue);
+    displayTotal();
+    saveKeyOperator(event.key);   
+    unmarkEquals();  
+  } else {
+    saveKeyOperator(event.key);   
+    saveInput();
+    unmarkEquals();
+  };
+});
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === '=' || event.key === 'Enter') {
+    if (operator !== '') {
+      saveInput();
+      operate(operator, firstValue, secondValue);
+      displayTotal();
+      markEquals();
+    };
+  };
+});
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Alt') {
+    togglePlusMinus();
+    displayInput();
+  };
 });
 
 
@@ -101,6 +152,12 @@ plusMinus.addEventListener('click', (e) => {
 function getInput(button) {
   if (input.length < 10) {
     return input += button.value;
+  };
+};
+
+function getKeyInput(key) {
+  if (input.length < 10) {
+    return input += key;
   };
 };
 
@@ -124,6 +181,10 @@ function saveInputEquals() {
 
 function saveOperator(arith) {    //saves the value of the arith button that was clicked, needs the parameter passed to it from the event listener
   return operator = arith.value;
+};
+
+function saveKeyOperator(key) {
+  return operator = key;
 };
 
 function displayTotal() {
