@@ -94,7 +94,9 @@ backspace.addEventListener('click', (e) => {
 //HELPER FUNCTIONS
 
 function getInput(button) {
-  return input += button.value;
+  if (input.length < 10) {
+    return input += button.value;
+  };
 };
 
 function displayInput() {
