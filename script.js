@@ -120,9 +120,13 @@ function saveOperator(arith) {    //saves the value of the arith button that was
 };
 
 function displayTotal() {
+  if (roundedTotal === 'Infinity') {
+    display.textContent = 'yeah nah';
+  } else {
   display.textContent = +roundedTotal;
   firstValue = +roundedTotal;
   secondValue = '';
+  };
 };
 
 function markEquals() {
