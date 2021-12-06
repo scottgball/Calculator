@@ -29,6 +29,7 @@ const equals = document.querySelector('#equals');
 const clearAll = document.querySelector('#clearAll');
 const backspace = document.querySelector('#backspace');
 const decimal = document.querySelector('#decimal');
+const plusMinus = document.querySelector('#plusMinus');
 let firstValue = '';
 let secondValue = '';
 let operator = '';
@@ -89,6 +90,10 @@ backspace.addEventListener('click', (e) => {
   displayInput();
 });
 
+plusMinus.addEventListener('click', (e) => {
+  togglePlusMinus();
+  displayInput();
+});
 
 
 //HELPER FUNCTIONS
@@ -152,6 +157,14 @@ function clearValues() {
 
 function deleteLast() {
   input = input.slice(0, input.length -1);
+};
+
+function togglePlusMinus () {
+  if (!input.includes('-')) {
+    input = '-' + input;
+  } else if (input.includes('-')) {
+    input = input.slice(1);
+  };
 };
 
 
