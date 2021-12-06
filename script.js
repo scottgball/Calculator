@@ -18,7 +18,7 @@ let operate = (operator, a, b) => {
   } else if (operator === '/') {
     total = divide(a, b);
     return roundedTotal = total.toFixed(6);
-  }
+  };
 };
 
 //DEFAULT VALUES
@@ -49,8 +49,8 @@ numbers.forEach((number) => {
 
 decimal.addEventListener('click', (e) => {
     if (!input.includes('.')) {
-    getInput(decimal);
-    displayInput();
+      getInput(decimal);
+      displayInput();
     };
 });
 
@@ -85,8 +85,8 @@ backspace.addEventListener('click', (e) => {
   if (input.length === 1 || input === '') {
     clearValues();
   } else {
-  deleteLast();
-  displayInput();
+    deleteLast();
+    displayInput();
   };
 });
 
@@ -99,7 +99,7 @@ document.addEventListener('keydown', function(event) {
   if (event.key = isFinite(event.key) || event.key === '.') {
     getKeyInput(event.key);
     displayInput();
-    }
+  };
 });
 
 document.addEventListener('keydown', function(event) {
@@ -107,24 +107,25 @@ document.addEventListener('keydown', function(event) {
     if (input.length === 1 || input === '') {
       clearValues();
     } else {
-    deleteLast();
-    displayInput();
+      deleteLast();
+      displayInput();
     };
   };
 });
 
 document.addEventListener('keydown', function(event) {
-  if (event.key === '+' || event.key === '-' || event.key === 'x' || event.key === '/')
+  if (event.key === '+' || event.key === '-' || event.key === 'x' || event.key === '/') {
     if (operator !== '' && equalsPressed === 'no') {  
-    saveInput();
-    operate(operator, firstValue, secondValue);
-    displayTotal();
-    saveKeyOperator(event.key);   
-    unmarkEquals();  
-  } else {
-    saveKeyOperator(event.key);   
-    saveInput();
-    unmarkEquals();
+      saveInput();
+      operate(operator, firstValue, secondValue);
+      displayTotal();
+      saveKeyOperator(event.key);   
+      unmarkEquals();  
+    } else {
+      saveKeyOperator(event.key);   
+      saveInput();
+      unmarkEquals();
+    };
   };
 });
 
@@ -151,13 +152,13 @@ document.addEventListener('keydown', function(event) {
 
 function getInput(button) {
   if (input.length < 10) {
-    return input += button.value;
+    input += button.value;
   };
 };
 
 function getKeyInput(key) {
   if (input.length < 10) {
-    return input += key;
+    input += key;
   };
 };
 
@@ -175,10 +176,6 @@ function saveInput() {
   };
 };
 
-function saveInputEquals() {
-  secondValue = +input;
-};
-
 function saveOperator(arith) {    //saves the value of the arith button that was clicked, needs the parameter passed to it from the event listener
   return operator = arith.value;
 };
@@ -189,11 +186,11 @@ function saveKeyOperator(key) {
 
 function displayTotal() {
   if (roundedTotal === 'Infinity') {
-    display.textContent = 'yeah nah';
+    display.textContent = 'yeah nah';  //Displayed when user tries to divide by zero
   } else {
-  display.textContent = +roundedTotal;
-  firstValue = +roundedTotal;
-  secondValue = '';
+    display.textContent = +roundedTotal;
+    firstValue = +roundedTotal;
+    secondValue = '';
   };
 };
 
